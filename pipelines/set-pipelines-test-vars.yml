@@ -1,0 +1,51 @@
+---
+resources:
+- name: concourse-examples
+  type: git
+  icon: github
+  check_every: 30m
+  source:
+    uri: https://github.com/concourse/examples
+
+jobs:
+# update this pipeline before updating child pipelines
+- name: set-self
+  public: true
+  build_log_retention:
+    builds: 50
+  plan:
+  - get: concourse-examples
+    trigger: true
+  - set_pipeline: self
+    file: concourse-examples/pipelines/set-pipelines.yml
+
+- name: set-example-pipelines
+  public: true
+  build_log_retention:
+    builds: 50
+  plan:
+  - get: concourse-examples
+    trigger: true
+    passed: [set-self]
+  - set_pipeline: pipeline-vars
+    file: concourse-examples/pipelines/pipeline-vars.yml
+    vars:
+      first: initial
+      number: "9000"
+      hello: HAL
+  - set_pipeline: pipeline-vars-file
+    file: concourse-examples/pipelines/pipeline-vars.yml
+    var_files:
+      - concourse-examples/pipelines/vars-file.yml
+  - set_pipeline: instance-groups
+    file: concourse-examples/pipelines/pipeline-vars.yml
+    instance_vars:
+      first: initial
+      number: "9000"
+      hello: HAL
+  - set_pipeline: instance-groups
+    file: concourse-examples/pipelines/pipeline-vars.yml
+    instance_vars:
+      first: second
+      number: "3000"
+      hello: WALLY-E
