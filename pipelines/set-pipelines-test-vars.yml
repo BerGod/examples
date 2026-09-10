@@ -1,12 +1,3 @@
----
-resources:
-- name: concourse-examples
-  type: git
-  icon: github
-  check_every: 30m
-  source:
-    uri: https://github.com/concourse/examples
-
 jobs:
 # update this pipeline before updating child pipelines
 - name: set-self
