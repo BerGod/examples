@@ -27,7 +27,7 @@ jobs:
   - get: concourse-examples
     trigger: true
     passed: [set-self]
-  - set_pipeline: pipeline-vars-mixed-test
+  - set_pipeline: pipeline-vars-with-varsFilesBefore
     file: concourse-examples/pipelines/pipeline-vars.yml
     var_files:
       - concourse-examples/pipelines/vars-file.yml
@@ -35,3 +35,20 @@ jobs:
       first: second
       number: "9001"
       hello: OVVERIDED
+
+- name: set-example-pipelines
+  public: true
+  build_log_retention:
+    builds: 50
+  plan:
+  - get: concourse-examples
+    trigger: true
+    passed: [set-self]
+  - set_pipeline: pipeline-vars-with-varsAfter
+    file: concourse-examples/pipelines/pipeline-vars.yml
+    vars:
+      first: second
+      number: "9001"
+      hello: OVVERIDED
+    var_files:
+      - concourse-examples/pipelines/vars-file.yml
