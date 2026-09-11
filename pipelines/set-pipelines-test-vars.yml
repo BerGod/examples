@@ -43,8 +43,9 @@ jobs:
       first: second
       number: "9001"
       hello: OVVERIDED
-  - set_pipeline: pipeline-varsFile
+  - set_pipeline: pipeline-with2varsFile
     file: concourse-examples/pipelines/pipeline-vars.yml
     var_files:
       - concourse-examples/pipelines/vars-file.yml
+      - concourse-examples/pipelines/second-vars-file.yml
     
