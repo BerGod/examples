@@ -27,25 +27,11 @@ jobs:
   - get: concourse-examples
     trigger: true
     passed: [set-self]
-  - set_pipeline: pipeline-vars
-    file: concourse-examples/pipelines/pipeline-vars.yml
-    vars:
-      first: initial
-      number: "9000"
-      hello: HAL
-  - set_pipeline: pipeline-vars-file
+  - set_pipeline: pipeline-vars-mixed-test
     file: concourse-examples/pipelines/pipeline-vars.yml
     var_files:
       - concourse-examples/pipelines/vars-file.yml
-  - set_pipeline: instance-groups
-    file: concourse-examples/pipelines/pipeline-vars.yml
-    instance_vars:
-      first: initial
-      number: "9000"
-      hello: HAL
-  - set_pipeline: instance-groups
-    file: concourse-examples/pipelines/pipeline-vars.yml
-    instance_vars:
+    vars:
       first: second
-      number: "3000"
-      hello: WALLY-E
+      number: "9001"
+      hello: OVVERIDED
