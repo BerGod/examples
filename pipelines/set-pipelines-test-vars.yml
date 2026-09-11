@@ -27,25 +27,34 @@ jobs:
   - get: concourse-examples
     trigger: true
     passed: [set-self]
-  - set_pipeline: pipeline-vars-with-varsFilesBefore
-    file: concourse-examples/pipelines/pipeline-vars.yml
-    var_files:
-      - concourse-examples/pipelines/vars-file.yml
-    vars:
-      first: second
-      number: "9001"
-      hello: OVVERIDED
-  - set_pipeline: pipeline-vars-with-varsAfter
-    file: concourse-examples/pipelines/pipeline-vars.yml
-    var_files:
-      - concourse-examples/pipelines/vars-file.yml
-    vars:
-      first: second
-      number: "9001"
-      hello: OVVERIDED
+  # - set_pipeline: pipeline-vars-with-varsFilesBefore
+  #   file: concourse-examples/pipelines/pipeline-vars.yml
+  #   var_files:
+  #     - concourse-examples/pipelines/vars-file.yml
+  #   vars:
+  #     first: second
+  #     number: "9001"
+  #     hello: OVVERIDED
+  # - set_pipeline: pipeline-vars-with-varsAfter
+  #   file: concourse-examples/pipelines/pipeline-vars.yml
+  #   var_files:
+  #     - concourse-examples/pipelines/vars-file.yml
+  #   vars:
+  #     first: second
+  #     number: "9001"
+  #     hello: OVVERIDED
   - set_pipeline: pipeline-with2varsFile
     file: concourse-examples/pipelines/pipeline-vars.yml
     var_files:
       - concourse-examples/pipelines/vars-file.yml
       - concourse-examples/pipelines/second-vars-file.yml
+  - set_pipeline: pipeline-with2varsFile-andVars
+    file: concourse-examples/pipelines/pipeline-vars.yml
+    var_files:
+      - concourse-examples/pipelines/vars-file.yml
+      - concourse-examples/pipelines/second-vars-file.yml
+    vars:
+      first: IamVars
+      number: "1234"
+      hello: OVVERIDEDFROMVARS
     
